@@ -57,7 +57,7 @@ def index():
             "Bang Thong (MB)":float(sw84_to_sw85_quota)/100000,
             "Bang Thong Hien Tai (MB)":float(sw84_to_sw85_curent)/100000,
             "Ty Le(%)": float(sw84_to_sw85_curent)/float(sw84_to_sw85_quota)* 100,
-            "May chu1":float(sw85_to_svr27126_curent)*4/10000
+            "May Chu1":float(sw85_to_svr27126_curent)*4/10000
 
         }]
     # other column settings -> http://bootstrap-table.wenzhixin.net.cn/documentation/#column-options
