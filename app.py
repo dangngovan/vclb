@@ -13,35 +13,28 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    vc_snmp_user = "vccloud"
-    sw84_snmp_pw = "Lq1NIFeOdyXEAFiVHkV1"
-    sw85_snmp_pw = "aVi2nCZXBib4qDykaJ6w"
-    sw1702_snmp_pw = "Iz7DFrey19QyXvJNVanP"
+    snmp_command = "snmpwalk -v3 -l authNoPriv -u"
+    user = "vccloud"
+    sw84_pw = "Lq1NIFeOdyXEAFiVHkV1"
+    sw85_pw = "aVi2nCZXBib4qDykaJ6w"
+    sw1702_pw = "Iz7DFrey19QyXvJNVanP"
     oid_bw_quota = "1.3.6.1.2.1.2.2.1.5"
     oid_bw_curent = "1.3.6.1.2.1.2.2.1.16"
     # sw85 (Po5) -> Core
-    sw85_to_swcore_quota = commands.getoutput("snmpwalk -v3 -l authNoPriv -u %s -a MD5 -A %s \
-    123.31.8.5 %s.5005"%(vc_snmp_user,sw85_snmp_pw,oid_bw_quota)).split(": ")[1]
-    sw85_to_swcore_curent = commands.getoutput("snmpwalk -v3 -l authNoPriv -u %s -a MD5 -A %s \
-    123.31.8.5 %s.5005"%(vc_snmp_user,sw85_snmp_pw,oid_bw_curent)).split(": ")[1]
+    sw85_to_swcore_quota = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.5 %s.5005"%(snmp_command,user,sw85_pw,oid_bw_quota)).split(": ")[1]
+    sw85_to_swcore_curent = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.5 %s.5005"%(snmp_command,user,sw85_pw,oid_bw_curent)).split(": ")[1]
 
     # sw1702 (Po1)-> swcore
-    sw1702_to_swcore_quota = commands.getoutput("snmpwalk -v3 -l authNoPriv -u %s -a MD5 -A %s \
-    123.30.170.2 %s.5001"%(vc_snmp_user,sw1702_snmp_pw,oid_bw_quota)).split(": ")[1]
-    sw1702_to_swcore_curent = commands.getoutput("snmpwalk -v3 -l authNoPriv -u %s -a MD5 -A %s \
-    123.30.170.2 %s.5001"%(vc_snmp_user,sw1702_snmp_pw,oid_bw_curent)).split(": ")[1]
+    sw1702_to_swcore_quota = commands.getoutput("%s %s -a MD5 -A %s 123.30.170.2 %s.5001"%(snmp_command,user,sw1702_pw,oid_bw_quota)).split(": ")[1]
+    sw1702_to_swcore_curent = commands.getoutput("%s %s -a MD5 -A %s 123.30.170.2 %s.5001"%(snmp_command,user,sw1702_pw,oid_bw_curent)).split(": ")[1]
 
     # sw84 (Po1) -> sw85
-    sw84_to_sw85_quota = commands.getoutput("snmpwalk -v3 -l authNoPriv -u %s -a MD5 -A %s \
-    123.31.8.4 %s.5001"%(vc_snmp_user,sw84_snmp_pw,oid_bw_quota)).split(": ")[1]
-    sw84_to_sw85_curent = commands.getoutput("snmpwalk -v3 -l authNoPriv -u %s -a MD5 -A %s \
-    123.31.8.4 %s.5001"%(vc_snmp_user,sw84_snmp_pw,oid_bw_curent)).split(": ")[1]
+    sw84_to_sw85_quota = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.4 %s.5001"%(snmp_command,user,sw84_pw,oid_bw_quota)).split(": ")[1]
+    sw84_to_sw85_curent = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.4 %s.5001"%(snmp_command,user,sw84_pw,oid_bw_curent)).split(": ")[1]
 
     #sw85  (Po4) -> svr27126
-    sw85_to_svr27126_quota = commands.getoutput("snmpwalk -v3 -l authNoPriv -u %s -a MD5 -A %s \
-    123.31.8.5 %s.5004"%(vc_snmp_user,sw85_snmp_pw,oid_bw_quota)).split(": ")[1]
-    sw85_to_svr27126_curent = commands.getoutput("snmpwalk -v3 -l authNoPriv -u %s -a MD5 -A %s \
-    123.31.8.5 %s.5004"%(vc_snmp_user,sw85_snmp_pw,oid_bw_curent)).split(": ")[1]
+    sw85_to_svr27126_quota = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.5 %s.5004"%(snmp_command,user,sw85_pw,oid_bw_quota)).split(": ")[1]
+    sw85_to_svr27126_curent = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.5 %s.5004"%(snmp_command,user,sw85_pw,oid_bw_curent)).split(": ")[1]
 
     data = [{
             "Dich Vu":"CND",
