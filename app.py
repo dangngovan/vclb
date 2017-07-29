@@ -22,15 +22,15 @@ def index():
     oid_bw_curent_out = "1.3.6.1.2.1.2.2.1.16"
     oid_bw_curent_in = "1.3.6.1.2.1.2.2.1.10"
     # sw85 (Po2) -> Core
-    sw85_to_swcore_quota = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.5 %s.5002"%(snmp_command,user,sw85_pw,oid_bw_quota_out)).split(": ")[1]
+    sw85_to_swcore_quota = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.5 %s.5002"%(snmp_command,user,sw85_pw,oid_bw_quota)).split(": ")[1]
     sw85_to_swcore_curent = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.5 %s.5002"%(snmp_command,user,sw85_pw,oid_bw_curent_out)).split(": ")[1]
 
     # sw1702 (Po1)-> swcore
-    sw1702_to_swcore_quota = commands.getoutput("%s %s -a MD5 -A %s 123.30.170.2 %s.5001"%(snmp_command,user,sw1702_pw,oid_bw_quota_out)).split(": ")[1]
+    sw1702_to_swcore_quota = commands.getoutput("%s %s -a MD5 -A %s 123.30.170.2 %s.5001"%(snmp_command,user,sw1702_pw,oid_bw_quota)).split(": ")[1]
     sw1702_to_swcore_curent = commands.getoutput("%s %s -a MD5 -A %s 123.30.170.2 %s.5001"%(snmp_command,user,sw1702_pw,oid_bw_curent_out)).split(": ")[1]
 
     # sw84 (Po1) -> sw85
-    sw84_to_sw85_quota = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.4 %s.5001"%(snmp_command,user,sw84_pw,oid_bw_quota_out)).split(": ")[1]
+    sw84_to_sw85_quota = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.4 %s.5001"%(snmp_command,user,sw84_pw,oid_bw_quota)).split(": ")[1]
     sw84_to_sw85_curent = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.4 %s.5001"%(snmp_command,user,sw84_pw,oid_bw_curent_out)).split(": ")[1]
 
     #sw85  (gi2/0/42-43-44-45) -> svr27126
