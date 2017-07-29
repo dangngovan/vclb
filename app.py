@@ -40,7 +40,7 @@ def index():
     data = [{
             "Dich Vu":"CND",
             "Duong Truyen": "8.5 to core",
-            "Bang Thong (MB)":float(sw85_to_swcore_quota)/100000,
+            "Bang Thong (MB)":float(sw85_to_swcore_quota)/1000000,
             "Bang Thong Hien Tai (MB)":float(sw85_to_swcore_curent)/1000000,
             "Ty Le(%)": float(sw85_to_swcore_curent)/float(sw85_to_swcore_quota)* 100
         },
@@ -48,16 +48,16 @@ def index():
             "Dich Vu": "CND",
             "Duong Truyen": "170.2 to core",
             "Bang Thong (MB)":float(sw1702_to_swcore_quota)/1000000,
-            "Bang Thong Hien Tai (MB)":float(sw1702_to_swcore_curent)/100000,
+            "Bang Thong Hien Tai (MB)":float(sw1702_to_swcore_curent)/1000000,
             "Ty Le(%)": float(sw1702_to_swcore_curent)/float(sw1702_to_swcore_quota)* 100
         },
         {
             "Dich Vu": "CND",
             "Duong Truyen": "8.4 to 8.5",
-            "Bang Thong (MB)":float(sw84_to_sw85_quota)/100000,
-            "Bang Thong Hien Tai (MB)":float(sw84_to_sw85_curent)/100000,
+            "Bang Thong (MB)":float(sw84_to_sw85_quota)/1000000,
+            "Bang Thong Hien Tai (MB)":float(sw84_to_sw85_curent)/1000000,
             "Ty Le(%)": float(sw84_to_sw85_curent)/float(sw84_to_sw85_quota)* 100,
-            "May Chu1":float(sw85_to_svr27126_curent)*4/10000
+            "May Chu1":float(sw85_to_svr27126_curent)*4/1000000
 
         }]
     # other column settings -> http://bootstrap-table.wenzhixin.net.cn/documentation/#column-options
