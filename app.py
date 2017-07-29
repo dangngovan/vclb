@@ -34,7 +34,7 @@ def index():
     sw84_to_sw85_curent = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.4 %s.5001"%(snmp_command,user,sw84_pw,oid_bw_curent_out)).split(": ")[1]
 
     #sw85  (gi2/0/42-43-44-45) -> svr27126
-    sw85_to_svr27126_quota = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.5 %s.10642"%(snmp_command,user,sw85_pw,oid_bw_quota_in)).split(": ")[1]
+    sw85_to_svr27126_quota = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.5 %s.10642"%(snmp_command,user,sw85_pw,oid_bw_quota)).split(": ")[1]
     sw85_to_svr27126_curent = commands.getoutput("%s %s -a MD5 -A %s 123.31.8.5 %s.10642"%(snmp_command,user,sw85_pw,oid_bw_curent_in)).split(": ")[1]
 
     data = [{
