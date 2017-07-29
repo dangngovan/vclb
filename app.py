@@ -13,10 +13,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    vc_snmp_user = "ccloud"
-    sw84_snmp_pw = "L1q1NIFeOdyXEAFiVHkV1"
-    sw85_snmp_pw = "a1Vi2nCZXBib4qDykaJ6w"
-    sw1702_snmp_pw = "I1z7DFrey19QyXvJNVanP"
+    vc_snmp_user = "vccloud"
+    sw84_snmp_pw = "Lq1NIFeOdyXEAFiVHkV1"
+    sw85_snmp_pw = "aVi2nCZXBib4qDykaJ6w"
+    sw1702_snmp_pw = "Iz7DFrey19QyXvJNVanP"
     oid_bw_quota = "1.3.6.1.2.1.2.2.1.5"
     oid_bw_curent = "1.3.6.1.2.1.2.2.1.16"
     # sw85 (Po5) -> Core
@@ -34,7 +34,7 @@ def index():
     # sw84 (Po1) -> sw85
     sw84_to_sw85_quota = commands.getoutput("snmpwalk -v3 -l authNoPriv -u %s -a MD5 -A %s \
     123.31.8.4 %s.5001"%(vc_snmp_user,sw84_snmp_pw,oid_bw_quota)).split(": ")[1]
-    sw1702_to_sw85_curent = commands.getoutput("snmpwalk -v3 -l authNoPriv -u %s -a MD5 -A %s \
+    sw84_to_sw85_curent = commands.getoutput("snmpwalk -v3 -l authNoPriv -u %s -a MD5 -A %s \
     123.31.8.4 %s.5001"%(vc_snmp_user,sw84_snmp_pw,oid_bw_curent)).split(": ")[1]
 
     #sw85  (Po4) -> svr27126
@@ -124,4 +124,4 @@ if __name__ == '__main__':
 	#print jdata
   app.jinja_env.auto_reload = True
   app.config['TEMPLATES_AUTO_RELOAD'] = True
-  app.run(debug=True)
+  app.run( host='10.3.26.7',debug=True)
