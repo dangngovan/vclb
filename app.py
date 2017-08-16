@@ -27,103 +27,117 @@ def index():
     sw85_pw = "aVi2nCZXBib4qDykaJ6w"
     sw1702_pw = "Iz7DFrey19QyXvJNVanP"
     swcorenps_pw = "qP2lXJ1UWDYzibBVZw0F"
-    x.execute("select sudung from result  where time in (select max(time) from result group by project) AND project='NPS_LIVETV';")
+    x.execute("select quota,sudung from result  where time in (select max(time) from result group by project) AND project='NPS_LIVETV';")
     data = x.fetchall ()
     for row in data:
-	livetv_nps_use = float(row[0])		 
-    livetv_ntl_use =x.execute("select sudung from result  where time in (select max(time) from result group by project) AND project='NTL_LIVETV';")
-    data = x.fetchall ()
-    for row in data:
-	livetv_ntl_use = float(row[0])	 
-    livetv_fpt_use =x.execute("select sudung from result  where time in (select max(time) from result group by project) AND project='FPT_LIVETV';")	
-    data = x.fetchall ()
-    for row in data:
-	livetv_fpt_use = float(row[0])		 
-    livetv_hcm_use =x.execute(" select sudung from result  where time in (select max(time) from result group by project) AND project='HCM_LIVETV';")
-    data = x.fetchall ()
-    for row in data:
-	livetv_hcm_use = float(row[0])		 
-    cdn_nps_use = x.execute("select sudung from result  where time in (select max(time) from result group by project) AND project='NPS_CDN';")
-    data = x.fetchall ()
-    for row in data:
-	cdn_nps_use = float(row[0])		 
-    cdn_ntl_use = x.execute("select sudung from result  where time in (select max(time) from result group by project) AND project='NTL_CDN';")	
-    data = x.fetchall ()
-    for row in data:
-	cdn_ntl_use = float(row[0])		 
-    cdn_fpt_use = x.execute("select sudung from result  where time in (select max(time) from result group by project) AND project='FPT_CDN';")	
-    data = x.fetchall ()
-    for row in data:
-	cdn_fpt_use = float(row[0])		 
-    cdn_hcm_use = x.execute(" select sudung from result  where time in (select max(time) from result group by project) AND project='HCM_CDN';")	
-    data = x.fetchall ()
-    for row in data:
-	cdn_hcm_use = float(row[0])		 
+        livetv_nps_use = float(row[1])
+        livetv_nps_quota = float(row[0])
 
+    x.execute("select quota,sudung from result  where time in (select max(time) from result group by project) AND project='NTL_LIVETV';")
+    data = x.fetchall ()
+    for row in data:
+        livetv_ntl_use = float(row[1])
+        livetv_ntl_quota = float(row[0])
+
+    x.execute("select quota,sudung from result  where time in (select max(time) from result group by project) AND project='FPT_LIVETV';")
+    data = x.fetchall ()
+    for row in data:
+        livetv_fpt_use = float(row[1])
+        livetv_fpt_quota = float(row[0])
+
+    x.execute(" select quota,sudung from result  where time in (select max(time) from result group by project) AND project='HCM_LIVETV';")
+    data = x.fetchall ()
+    for row in data:
+        livetv_hcm_use = float(row[1])
+        livetv_hcm_quota = float(row[0])
+
+    x.execute("select quota,sudung from result  where time in (select max(time) from result group by project) AND project='NPS_CDN';")
+    data = x.fetchall ()
+    for row in data:
+        cdn_nps_use = float(row[1])
+        cdn_nps_quota = float(row[0])
+
+    x.execute("select quota,sudung from result  where time in (select max(time) from result group by project) AND project='NTL_CDN';")
+    data = x.fetchall ()
+    for row in data:
+        cdn_ntl_use = float(row[1])
+        cdn_ntl_quota = float(row[0])
+
+    x.execute("select quota,sudung from result  where time in (select max(time) from result group by project) AND project='FPT_CDN';")
+    data = x.fetchall ()
+    for row in data:
+        cdn_fpt_use = float(row[1])
+        cdn_fpt_quota = float(row[0])
+
+    x.execute(" select quota,sudung from result  where time in (select max(time) from result group by project) AND project='HCM_CDN';")
+    data = x.fetchall ()
+    for row in data:
+        cdn_hcm_use = float(row[1])
+        cdn_hcm_quota = float(row[0])
     x.close()	
     data = [{
             "ISP":"NPS",
 	    "PROJECT":"LIVETV",
-	    "QUOTA":20,
+	    "QUOTA":livetv_nps_quota,
 	    "USE":"%.2f"%livetv_nps_use,
-	    "FREE":"%.2f"%( 20 - livetv_nps_use),
-	    "PER(%)":"%.2f"%((livetv_nps_use/20)*100)
+	    "FREE":"%.2f"%( livetv_nps_quota - livetv_nps_use),
+	    "PER(%)":"%.2f"%((livetv_nps_use/livetv_nps_quota)*100)
         },
 	{
 	    "ISP":"NTL",
             "PROJECT":"LIVETV",
-            "QUOTA":20,
+            "QUOTA":livetv_ntl_quota,
             "USE":"%.2f"%livetv_ntl_use,
-            "FREE": "%.2f"%(20 - livetv_ntl_use),
-            "PER(%)":"%.2f"%((livetv_ntl_use/20)*100) 	
+            "FREE": "%.2f"%(livetv_ntl_quota - livetv_ntl_use),
+            "PER(%)":"%.2f"%((livetv_ntl_use/livetv_ntl_quota)*100)
 	},
 	{
 	    "ISP":"FPT",
             "PROJECT":"LIVETV",
-            "QUOTA":20,
+            "QUOTA":livetv_fpt_quota,
             "USE":"%.2f"%livetv_fpt_use,
-            "FREE": "%.2f"%(20 - livetv_fpt_use),
-            "PER(%)":"%.2f"%((livetv_fpt_use/20)*100)
+            "FREE": "%.2f"%(livetv_fpt_quota - livetv_fpt_use),
+            "PER(%)":"%.2f"%((livetv_fpt_use/livetv_fpt_quota)*100)
 	},
 	{
 	    "ISP":"HCM",
             "PROJECT":"LIVETV",
-            "QUOTA":20,
+            "QUOTA":livetv_hcm_quota,
             "USE":"%.2f"%livetv_hcm_use,
-            "FREE":"%.2f"%( 20 - livetv_hcm_use),
-            "PER(%)":"%.2f"%((livetv_hcm_use/20)*100)
+            "FREE":"%.2f"%( livetv_hcm_quota - livetv_hcm_use),
+            "PER(%)":"%.2f"%((livetv_hcm_use/livetv_hcm_quota)*100)
 	},
 	{
             "ISP":"NPS",
             "PROJECT":"CDN",
-            "QUOTA":30,
+            "QUOTA":cdn_nps_quota,
             "USE":"%.2f"%cdn_nps_use,
-            "FREE": "%.2f"%(30 - cdn_nps_use),
-            "PER(%)":"%.2f"%((cdn_nps_use/30)*100)
+            "FREE": "%.2f"%(cdn_nps_quota - cdn_nps_use),
+            "PER(%)":"%.2f"%((cdn_nps_use/cdn_nps_quota)*100)
         },
 	{
             "ISP":"FPT",
             "PROJECT":"CDN",
-            "QUOTA":20,
+            "QUOTA":cdn_fpt_quota,
             "USE":"%.2f"%cdn_fpt_use,
-            "FREE":"%.2f"%(20 - cdn_fpt_use),
-            "PER(%)":"%.2f"%((cdn_fpt_use/20)*100)
+            "FREE":"%.2f"%(cdn_fpt_quota - cdn_fpt_use),
+            "PER(%)":"%.2f"%((cdn_fpt_use/cdn_fpt_quota)*100)
         },
 	{
             "ISP":"NTL",
             "PROJECT":"CDN",
-            "QUOTA":20,
+            "QUOTA":cdn_ntl_quota,
             "USE":"%.2f"%cdn_ntl_use,
-            "FREE":"%.2f"% (20 - cdn_ntl_use),
-            "PER(%)":"%.2f"%((cdn_ntl_use/20)*100)
+            "FREE":"%.2f"% (cdn_ntl_quota - cdn_ntl_use),
+            "PER(%)":"%.2f"%((cdn_ntl_use/cdn_ntl_quota)*100)
         },
 	{
             "ISP":"HCM",
             "PROJECT":"CDN",
-            "QUOTA":20,
+            "QUOTA":cdn_hcm_quota,
             "USE":"%.2f"%cdn_hcm_use,
-            "FREE": "%.2f"%(20 - cdn_hcm_use),
-            "PER(%)":"%.2f"%((cdn_hcm_use/20)*100)
+            "FREE": "%.2f"%(cdn_hcm_quota - cdn_hcm_use),
+            "PER(%)":"%.2f"%((cdn_hcm_use/cdn_hcm_quota)*100)
         }
         ]
     # other column settings -> http://bootstrap-table.wenzhixin.net.cn/documentation/#column-options
