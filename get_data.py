@@ -16,6 +16,11 @@ cdn_nps_quota = 20
 cdn_ntl_quota = 20
 cdn_fpt_quota = 20
 cdn_hcm_quota = 20
+nps_quota = 60
+ntl_quota = 40
+hcm_quota = 20
+fpt_quota = 20
+viettel_quota = 20
 
 #jdata=json.dumps(data)
 livetv_fpt_use_41 = commands.getoutput("sh get_bw_v2.sh -h 42.112.37.1 -s monitor -b 50 -i 2")
@@ -84,4 +89,10 @@ cdn_hcm_use_40 = commands.getoutput("sh get_bw_v2.sh -h 123.30.215.1 -s monitor 
 cdn_hcm_use = (float(cdn_hcm_use_11.split()[1]) + float(cdn_hcm_use_41.split()[1]) + float(cdn_hcm_use_42.split()[1]) + float(cdn_hcm_use_51.split()[1]) + float(cdn_hcm_use_40.split()[1]))/1000000
 x.execute (" INSERT INTO result VALUES ('%s','%s','%s', '%s','%s','%s','%s')"%(datetime.datetime.utcnow(),'HCM','HCM_CDN', cdn_hcm_quota,cdn_hcm_use,cdn_hcm_quota - cdn_hcm_use, cdn_hcm_use/cdn_hcm_quota*100,))
 
+# NPS
+#nps_use = commands.getoutput("sh get_bw_v3.sh -h 123.30.232.84 -s qP2lXJ1UWDYzibBVZw0F -b 50 -i 41")
+# NTL
+# HCM
+# FPT
+# VIETTEL
 x.close()
